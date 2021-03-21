@@ -11,5 +11,6 @@ namespace Business.Constants
         public static string MaintenanceTime = "Maintenance time";
         public static string RentalAdded = "Rental added.";
         public static string CarIsBusy = "Car is busy. Rental could not add.";
+        public static string CarImageLimitExceeded = "Car image limit exceeded";
     }
 }

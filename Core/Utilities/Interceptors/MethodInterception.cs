@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Core.Utilities.Interceptors
 {
-    public class MethodInterception : MethodInterceptionBaseAttribute
+    public abstract class MethodInterception : MethodInterceptionBaseAttribute
     {
         public virtual void OnBefore(IInvocation invocation) { }
         public virtual void OnAfter(IInvocation invocation) { }
