@@ -13,8 +13,8 @@ namespace Business.BusinessAspects.Autofac
 {
     public class SecuredOperation : MethodInterception
     {
-        string[] _roles;
-        IHttpContextAccessor _httpContextAccessor;
+        readonly string[] _roles;
+        readonly IHttpContextAccessor _httpContextAccessor;
 
         public SecuredOperation(string roles)
         {
@@ -22,7 +22,7 @@ namespace Business.BusinessAspects.Autofac
             _httpContextAccessor = ServiceTool.ServiceProvider.GetService<IHttpContextAccessor>();
         }
 
-        public override void OnBefore(IInvocation invocation)
+        protected override void OnBefore(IInvocation invocation)
         {
             var roleClaims = _httpContextAccessor.HttpContext.User.ClaimRoles();
             foreach (var role in _roles)

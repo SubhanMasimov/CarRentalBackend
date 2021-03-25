@@ -24,7 +24,7 @@ namespace Core.Aspects.Autofac.Validation
             _validatortype = validatortype;
         }
 
-        public override void OnBefore(IInvocation invocation)
+        protected override void OnBefore(IInvocation invocation)
         {
             var validator = (IValidator)Activator.CreateInstance(_validatortype);
             var entityType = _validatortype.BaseType.GetGenericArguments()[0];
