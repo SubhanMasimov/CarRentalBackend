@@ -5,13 +5,13 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DataAccess.Concrete.EntityFramework
+namespace DataAccess.Concrete.EntityFramework.Contexts
 {
     public class CarRentalContext : DbContext
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server = (localdb)\MSSQLLocalDB; Database = CarRental; Trusted_Connection = True");
+            optionsBuilder.UseSqlServer(@"Server = Acer; Database = dbCarRental; Trusted_Connection = True");
         }
 
         public DbSet<Car> Cars { get; set; }
