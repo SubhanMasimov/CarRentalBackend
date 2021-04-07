@@ -23,6 +23,8 @@ namespace Business.Concrete
 
 
         [ValidationAspect(typeof(RentalValidator))]
+        [SecuredOperation("rental.admin,admin")]
+        [CacheRemoveAspect("IRentalService.Get")]
         public IResult Add(Rental rental)
         {
             var result = _rentalDal.GetAll(r => r.CarId == rental.CarId && r.ReturnDate == null).Count;
@@ -36,29 +38,38 @@ namespace Business.Concrete
             return new ErrorResult(Messages.CarIsBusy);
         }
 
+        [SecuredOperation("rental.admin,admin")]
+        [CacheRemoveAspect("IRentalService.Get")]
         public IResult Delete(Rental rental)
         {
             _rentalDal.Delete(rental);
             return new SuccessResult();
         }
 
+        [CacheAspect]
+        [SecuredOperation("rental.admin,admin")]
         public IDataResult<Rental> Get(int rentalId)
         {
             return new SuccessDataResult<Rental>(_rentalDal.Get(r => r.Id == rentalId));
         }
 
-
         [CacheAspect]
+        [SecuredOperation("rental.admin,admin")]
         public IDataResult<List<Rental>> GetAll()
         {
             return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll());
         }
 
+        [CacheAspect]
+        [SecuredOperation("rental.admin,admin")]
         public IDataResult<List<RentalDetailDto>> GetRentalDtos()
         {
             return new SuccessDataResult<List<RentalDetailDto>>(_rentalDal.GetRentalDtos());
         }
 
+        [ValidationAspect(typeof(RentalValidator))]
+        [SecuredOperation("rental.admin,admin")]
+        [CacheRemoveAspect("IRentalService.Get")]
         public IResult Update(Rental rental)
         {
             _rentalDal.Update(rental);

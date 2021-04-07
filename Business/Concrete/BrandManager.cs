@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Caching;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
@@ -21,28 +23,37 @@ namespace Business.Concrete
 
 
         [ValidationAspect(typeof(BrandValidator))]
+        [SecuredOperation("brand.admin,admin")]
+        [CacheRemoveAspect("IBrandService.Get")]
         public IResult Add(Brand brand)
         {
             _brandDal.Add(brand);
             return new SuccessResult();
         }
 
+        [SecuredOperation("brand.admin,admin")]
+        [CacheRemoveAspect("IBrandService.Get")]
         public IResult Delete(Brand brand)
         {
             _brandDal.Delete(brand);
             return new SuccessResult();
         }
 
+        [CacheAspect]
         public IDataResult<Brand> Get(int brandId)
         {
             return new SuccessDataResult<Brand>(_brandDal.Get(c => c.Id == brandId));
         }
 
+        [CacheAspect]
         public IDataResult<List<Brand>> GetAll()
         {
             return new SuccessDataResult<List<Brand>>(_brandDal.GetAll());
         }
 
+        [ValidationAspect(typeof(BrandValidator))]
+        [SecuredOperation("brand.admin,admin")]
+        [CacheRemoveAspect("IBrandService.Get")]
         public IResult Update(Brand brand)
         {
             _brandDal.Update(brand);

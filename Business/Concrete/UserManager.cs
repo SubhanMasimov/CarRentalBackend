@@ -7,6 +7,8 @@ using Core.Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Business.BusinessAspects.Autofac;
+using Core.Aspects.Autofac.Caching;
 
 namespace Business.Concrete
 {
@@ -19,25 +21,31 @@ namespace Business.Concrete
             _userDal = userDal;
         }
 
-
         [ValidationAspect(typeof(UserValidator))]
+        [SecuredOperation("admin")]
+        [CacheRemoveAspect("IUserService.Get")]
         public IResult Add(User user)
         {
             _userDal.Add(user);
             return new SuccessResult();
         }
 
+        [SecuredOperation("admin")]
+        [CacheRemoveAspect("IUserService.Get")]
         public IResult Delete(User user)
         {
             _userDal.Delete(user);
             return new SuccessResult();
         }
 
+        [SecuredOperation("admin")]
         public IDataResult<User> Get(int userId)
         {
             return new SuccessDataResult<User>(_userDal.Get(u => u.Id == userId));
         }
 
+        [SecuredOperation("admin")]
+        [CacheAspect]
         public IDataResult<List<User>> GetAll()
         {
             return new SuccessDataResult<List<User>>(_userDal.GetAll());
@@ -53,6 +61,9 @@ namespace Business.Concrete
             return new SuccessDataResult<List<OperationClaim>>(_userDal.GetClaims(user));
         }
 
+        [ValidationAspect(typeof(UserValidator))]
+        [SecuredOperation("admin")]
+        [CacheRemoveAspect("IUserService.Get")]
         public IResult Update(User user)
         {
             _userDal.Update(user);
