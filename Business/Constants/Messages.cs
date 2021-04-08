@@ -7,17 +7,17 @@ namespace Business.Constants
 {
     public static class Messages
     {
-        public static string CarsListed = "Cars listed.";
-        public static string MaintenanceTime = "Maintenance time";
-        public static string RentalAdded = "Rental added.";
-        public static string CarIsBusy = "Car is busy. Rental could not add.";
-        public static string CarImageLimitExceeded = "Car image limit exceeded";
-        public static string AuthorizationDenied = "Authorization denied";
-        public static string UserRegistered = "User registered";
-        public static string UserNotFound = "User Not Found";
-        public static string PasswordError = "Password Error";
-        public static string SuccessfulLogin = "Successful Login.";
-        public static string UserAlreadyExists = "User Already Exists";
-        public static string AccessTokenCreated = "Access Token Created";
+        public static string CarsListed = "Avtomobillər listələndi";
+        public static string MaintenanceTime = "Sistem təmirdədir";
+        public static string RentalAdded = "Kirayə əlavə edildi";
+        public static string CarIsBusy = "Avtomobil istifadədir, kirayələnmə uğursuz";
+        public static string CarImageLimitExceeded = "Avtomobil şəkil limitini aşdınız";
+        public static string AuthorizationDenied = "İcazəniz yoxdur";
+        public static string UserRegistered = "Hesab yaradıldı";
+        public static string UserNotFound = "Belə istifadəçi mövcud deyil";
+        public static string PasswordError = "Şifrəniz xətalı";
+        public static string SuccessfulLogin = "Giriş uğurlu";
+        public static string UserAlreadyExists = "Bu istifadəçi artıq mövcuddur";
+        public static string AccessTokenCreated = "Access Token yaradıldı";
     }
 }

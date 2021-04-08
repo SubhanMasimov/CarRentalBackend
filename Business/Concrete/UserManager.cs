@@ -22,7 +22,7 @@ namespace Business.Concrete
         }
 
         [ValidationAspect(typeof(UserValidator))]
-        [SecuredOperation("admin")]
+        //[SecuredOperation("admin")]
         [CacheRemoveAspect("IUserService.Get")]
         public IResult Add(User user)
         {
@@ -30,7 +30,7 @@ namespace Business.Concrete
             return new SuccessResult();
         }
 
-        [SecuredOperation("admin")]
+        //[SecuredOperation("admin")]
         [CacheRemoveAspect("IUserService.Get")]
         public IResult Delete(User user)
         {
@@ -38,13 +38,13 @@ namespace Business.Concrete
             return new SuccessResult();
         }
 
-        [SecuredOperation("admin")]
+        //[SecuredOperation("admin")]
         public IDataResult<User> Get(int userId)
         {
             return new SuccessDataResult<User>(_userDal.Get(u => u.Id == userId));
         }
 
-        [SecuredOperation("admin")]
+        //[SecuredOperation("admin")]
         [CacheAspect]
         public IDataResult<List<User>> GetAll()
         {
@@ -62,7 +62,7 @@ namespace Business.Concrete
         }
 
         [ValidationAspect(typeof(UserValidator))]
-        [SecuredOperation("admin")]
+        //[SecuredOperation("admin")]
         [CacheRemoveAspect("IUserService.Get")]
         public IResult Update(User user)
         {

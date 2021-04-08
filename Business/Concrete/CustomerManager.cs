@@ -20,7 +20,7 @@ namespace Business.Concrete
         }
 
         [ValidationAspect(typeof(CustomerValidator))]
-        [SecuredOperation("customer.admin,admin")]
+        //[SecuredOperation("customer.admin,admin")]
         [CacheRemoveAspect("ICustomerService.Get")]
         public IResult Add(Customer customer)
         {
@@ -28,7 +28,7 @@ namespace Business.Concrete
             return new SuccessResult();
         }
 
-        [SecuredOperation("customer.admin,admin")]
+        //[SecuredOperation("customer.admin,admin")]
         [CacheRemoveAspect("ICustomerService.Get")]
         public IResult Delete(Customer customer)
         {
@@ -49,7 +49,7 @@ namespace Business.Concrete
         }
 
         [ValidationAspect(typeof(CustomerValidator))]
-        [SecuredOperation("customer.admin,admin")]
+        //[SecuredOperation("customer.admin,admin")]
         [CacheRemoveAspect("ICustomerService.Get")]
         public IResult Update(Customer customer)
         {
