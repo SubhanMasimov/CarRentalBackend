@@ -65,7 +65,7 @@ namespace ConsoleUI
 
             foreach (var brand in brandManager.GetAll().Data)
             {
-                Console.WriteLine($"{brand.Id} - {brand.Name}");
+                Console.WriteLine($"{brand.Id} - {brand.BrandName}");
             }
         }
 
