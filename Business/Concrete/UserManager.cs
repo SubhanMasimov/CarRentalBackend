@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Text;
 using Business.BusinessAspects.Autofac;
 using Core.Aspects.Autofac.Caching;
+using Business.Constants;
 
 namespace Business.Concrete
 {
@@ -27,7 +28,7 @@ namespace Business.Concrete
         public IResult Add(User user)
         {
             _userDal.Add(user);
-            return new SuccessResult();
+            return new SuccessResult(Messages.UserRegistered);
         }
 
         //[SecuredOperation("admin")]
@@ -35,20 +36,20 @@ namespace Business.Concrete
         public IResult Delete(User user)
         {
             _userDal.Delete(user);
-            return new SuccessResult();
+            return new SuccessResult(Messages.UserDeleted);
         }
 
         //[SecuredOperation("admin")]
         public IDataResult<User> Get(int userId)
         {
-            return new SuccessDataResult<User>(_userDal.Get(u => u.Id == userId));
+            return new SuccessDataResult<User>(_userDal.Get(u => u.Id == userId), Messages.UserDetailListed);
         }
 
         //[SecuredOperation("admin")]
         [CacheAspect]
         public IDataResult<List<User>> GetAll()
         {
-            return new SuccessDataResult<List<User>>(_userDal.GetAll());
+            return new SuccessDataResult<List<User>>(_userDal.GetAll(), Messages.UsersListed);
         }
 
         public IDataResult<User> GetByMail(string email)
@@ -58,7 +59,7 @@ namespace Business.Concrete
 
         public IDataResult<List<OperationClaim>> GetClaims(User user)
         {
-            return new SuccessDataResult<List<OperationClaim>>(_userDal.GetClaims(user));
+            return new SuccessDataResult<List<OperationClaim>>(_userDal.GetClaims(user), Messages.UserClaimsListed);
         }
 
         [ValidationAspect(typeof(UserValidator))]
@@ -67,7 +68,7 @@ namespace Business.Concrete
         public IResult Update(User user)
         {
             _userDal.Update(user);
-            return new SuccessResult();
+            return new SuccessResult(Messages.UserUpdated);
         }
     }
 }

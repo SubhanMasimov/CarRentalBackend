@@ -29,7 +29,7 @@ namespace Business.Concrete
         public IResult Add(Car car)
         {
             _carDal.Add(car);
-            return new SuccessResult();
+            return new SuccessResult(Messages.CarAdded);
         }
 
         //[SecuredOperation("car.admin,admin")]
@@ -37,7 +37,7 @@ namespace Business.Concrete
         public IResult Delete(Car car)
         {
             _carDal.Delete(car);
-            return new SuccessResult();
+            return new SuccessResult(Messages.CarDeleted);
         }
 
         [CacheAspect]
@@ -49,7 +49,7 @@ namespace Business.Concrete
         [CacheAspect]
         public IDataResult<Car> Get(int carId)
         {
-            return new SuccessDataResult<Car>(_carDal.Get(c => c.Id == carId));
+            return new SuccessDataResult<Car>(_carDal.Get(c => c.Id == carId), Messages.CarDetailListed);
         }
 
         [ValidationAspect(typeof(CarValidator))]
@@ -58,30 +58,30 @@ namespace Business.Concrete
         public IResult Update(Car car)
         {
             _carDal.Update(car);
-            return new SuccessResult();
+            return new SuccessResult(Messages.CarUpdated);
         }
 
         [CacheAspect]
         public IDataResult<List<Car>> GetCarsByBrandId(int brandId)
         {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.BrandId == brandId));
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.BrandId == brandId), Messages.CarsListedByBrandId);
         }
 
         [CacheAspect]
         public IDataResult<List<Car>> GetCarsByColorId(int colorId)
         {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.ColorId == colorId));
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.ColorId == colorId), Messages.CarsListedByColorId);
         }
 
         [CacheAspect]
         public IDataResult<List<CarDetailDto>> GetCarDetails()
         {
-            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails());
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(), Messages.CarDtosListed);
         }
 
         public IDataResult<List<CarDetailDto>> GetCarDtosByBrandName(string brandName)
         {
-            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDtosByBrandName(brandName));
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDtosByBrandName(brandName), Messages.CarDtoListedByBrandName);
         }
     }
 }

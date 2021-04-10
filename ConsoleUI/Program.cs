@@ -19,25 +19,11 @@ namespace ConsoleUI
 
             Console.WriteLine(rentalManager.Add(new Rental
             {
-                CustomerId = 1,
+                UserId = 1,
                 CarId = 2,
                 RentDate = DateTime.Now
             }).Message);
 
-        }
-
-        private static CustomerManager CustomerTest()
-        {
-            CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
-
-            var result = customerManager.GetAll();
-
-            foreach (var customer in result.Data)
-            {
-                Console.WriteLine($"{customer.Id} -- {customer.UserId} -- {customer.CompanyName}");
-            }
-
-            return customerManager;
         }
 
         private static void IResultCarTest()

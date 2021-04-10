@@ -43,28 +43,28 @@ namespace Business.Concrete
         public IResult Delete(Rental rental)
         {
             _rentalDal.Delete(rental);
-            return new SuccessResult();
+            return new SuccessResult(Messages.RentalDeleted);
         }
 
         [CacheAspect]
         //[SecuredOperation("rental.admin,admin")]
         public IDataResult<Rental> Get(int rentalId)
         {
-            return new SuccessDataResult<Rental>(_rentalDal.Get(r => r.Id == rentalId));
+            return new SuccessDataResult<Rental>(_rentalDal.Get(r => r.Id == rentalId), Messages.RentalDetailListed);
         }
 
         [CacheAspect]
         //[SecuredOperation("rental.admin,admin")]
         public IDataResult<List<Rental>> GetAll()
         {
-            return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll());
+            return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(), Messages.RentalsListed);
         }
 
         [CacheAspect]
         //[SecuredOperation("rental.admin,admin")]
         public IDataResult<List<RentalDetailDto>> GetRentalDtos()
         {
-            return new SuccessDataResult<List<RentalDetailDto>>(_rentalDal.GetRentalDtos());
+            return new SuccessDataResult<List<RentalDetailDto>>(_rentalDal.GetRentalDtos(), Messages.RentalDtosListed);
         }
 
         [ValidationAspect(typeof(RentalValidator))]
@@ -73,7 +73,7 @@ namespace Business.Concrete
         public IResult Update(Rental rental)
         {
             _rentalDal.Update(rental);
-            return new SuccessResult();
+            return new SuccessResult(Messages.RentalUpdated);
         }
     }
 }
