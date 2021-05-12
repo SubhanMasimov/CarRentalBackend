@@ -4,10 +4,12 @@ using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Caching;
 using Core.Aspects.Autofac.Validation;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
+using System;
 using System.Collections.Generic;
 
 namespace Business.Concrete
@@ -27,14 +29,13 @@ namespace Business.Concrete
         [CacheRemoveAspect("IRentalService.Get")]
         public IResult Add(Rental rental)
         {
-            var result = _rentalDal.GetAll(r => r.CarId == rental.CarId && r.ReturnDate == null).Count;
+            var result = BusinessRules.Run(CheckIfCarIsAvailable(rental));
 
-            if (result == 0)
+            if (result == null)
             {
                 _rentalDal.Add(rental);
                 return new SuccessResult(Messages.RentalAdded);
             }
-
             return new ErrorResult(Messages.CarIsBusy);
         }
 
@@ -74,6 +75,20 @@ namespace Business.Concrete
         {
             _rentalDal.Update(rental);
             return new SuccessResult(Messages.RentalUpdated);
+        }
+
+        //business rules
+
+        public IResult CheckIfCarIsAvailable(Rental rental)
+        {
+            var result = _rentalDal.GetAll(r => r.CarId == rental.CarId && r.RentDate <= DateTime.Now && r.ReturnDate >= DateTime.Now);
+
+            if (result.Count == 0)
+            {
+                return new SuccessResult();
+            }
+
+            return new ErrorResult();
         }
     }
 }
